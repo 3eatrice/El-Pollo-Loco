@@ -1,70 +1,126 @@
-class MoveableObject extends DrawableObject {
-    speed = 0.15;
-    otherDirection = false;
-    speedY = 0;
-    acceleration = 2.5;
-    energy = 100;
-    lastHit = 0;
+class MovableObject extends DrawableObject{
+  speed;
+  speedY = 0;
+  acceleration = 3;
+  offset = {top: 0, bottom: 0,left: 0,right: 0};
+  lastHit = 0;
+  bottleHit = false;
 
-    applyGravitiy() {
-        setInterval(() => {
-            if(this.isAboveGround() || this.speedY > 0) {
-            this.y -= this.speedY;
-            this.speedY -= this.acceleration;
-            }
-        }, 1000 / 25);
+
+  /**
+   * function to move left
+   */
+  moveLeft() {
+    this.x -= this.speed;
+  }
+
+
+  /**
+   * function to move right
+   */
+  moveRight() {
+    this.x += this.speed;
+  }
+
+
+  /**
+   * function to play animations
+   * @param {} images - array contains paths of images
+   */
+  playAnimation(images) {
+    let i = this.currentImage % images.length;
+    let path = images[i];
+    this.img = this.imageCache[path];
+    this.currentImage++;
+  }
+
+
+  /**
+   * function to play animations of death
+   * @param {*} images - array contains paths of images
+   */
+  playAnimationDead(images) {
+    let path = images[this.currentImageDead];
+    this.img = this.imageCache[path];
+    if (this.currentImageDead < images.length -1) {
+      this.currentImageDead++;
     }
+  }
 
-    isAboveGround() {
-        if(this instanceof ThrowableObject) {
-            return true;
-        } else {
-            return this.y < 180;
+
+  playAnimationJump(images) {
+    let path = images[this.currentImageJump];
+    this.img = this.imageCache[path];
+    if (this.currentImageJump < images.length -1) {
+      this.currentImageJump++;
+    }
+  }
+
+
+  applyGravity() {
+    setInterval(() => {
+        if (this.isAboveGround() || this.speedY > 0) {
+          this.y -= this.speedY;
+          this.speedY -= this.acceleration;
+        if (this instanceof Character && (this.y > 135)) {
+          this.y = 135;
         }
-    }
-
-    isColliding(mo) {
-        return  this.x + this.width > mo.x &&  
-                this.y + this.height > mo.y &&
-                this.x < mo.x &&
-                this.y < mo.y + mo.height 
-    }
-
-    hit() {
-        this.energy -= 5;
-        if(this.energy <= 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
+        if ((this instanceof MovableObject) && (this.y > 340)) {
+          this.y = 340;
         }
-    }
+        if (!this.isAboveGround()) {
+          this.speedY = 0;
+        }
+      }
+    },1000/25)
+  }
 
-    isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000; 
-        return timepassed < 1;
-    }
 
-    isDead() {
-        return this.energy == 0;
+  isAboveGround() {
+    if (this instanceof ThrowableBottle) {
+      return true;
+    } else {
+      return this.y <135
     }
+  }
 
-    playAnimation(images) {
-        let i = this.currentImage % images.length;   // let i = 0 % 6; 
-        let path = images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-    }
 
-    moveRight() {
-        this.x += this.speed;
-    }
+  jump() {
+    this.speedY = 35 ; 
+  }
 
-    moveLeft() {
-        this.x -= this.speed;
-    }
 
-    jump() {
-        this.speedY = 30;
-    }
+  isColliding (obj) {
+    return this.x + this.w - this.offset.right > obj.x + obj.offset.left &&
+      this.y + this.h - this.offset.bottom > obj.y + obj.offset.top &&
+      this.x + this.offset.left < obj.x + obj.w - obj.offset.right &&
+      this.y + this.offset.top < obj.y + obj.h - obj.offset.bottom;
+  }
+
+  
+  isHit (enemy) {
+  if (enemy.constructor.name == 'Chicken') {
+    this.lifePoints -= 4;
+  } else if (enemy.constructor.name == 'Chick') {
+    this.lifePoints -= 2;
+  } else if (enemy.constructor.name == 'Endboss') {
+    this.lifePoints -= 10;
+  }
+  if (this.lifePoints < 0) {
+    this.lifePoints = 0;
+  }
+    this.lastHit = new Date().getTime();
+  }
+
+
+  isHurt () {
+    let timepassed = new Date().getTime() - this.lastHit;
+    timepassed = timepassed / 1000;
+    return timepassed < 0.5;
+  }
+
+  
+  isDead () {
+   return this.lifePoints <= 0;
+  }
 }

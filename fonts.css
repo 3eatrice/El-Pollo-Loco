@@ -1,0 +1,37 @@
+@font-face {
+  font-display: swap; 
+  font-family: 'Gaegu';
+  font-style: normal;
+  font-weight: 300;
+  src: url('fonts/Gaegu-300.eot'); 
+  src: url('fonts/Gaegu-300.eot?#iefix') format('embedded-opentype'), 
+       url('fonts/Gaegu-300.woff2') format('woff2'), 
+       url('fonts/Gaegu-300.woff') format('woff'), 
+       url('fonts/Gaegu-300.ttf') format('truetype'), 
+       url('fonts/Gaegu-300.svg#Kalam') format('svg'); 
+}
+@font-face {
+  font-display: swap; 
+  font-family: 'Gaegu';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Gaegu-Regular.eot'); 
+  src: url('fonts/Gaegu-Regular.eot?#iefix') format('embedded-opentype'), 
+       url('fonts/Gaegu-Regular.woff2') format('woff2'), 
+       url('fonts/Gaegu-Regular.woff') format('woff'), 
+       url('fonts/Gaegu-Regular.ttf') format('truetype'), 
+       url('fonts/Gaegu-Regular.svg#Kalam') format('svg'); 
+}
+
+@font-face {
+  font-display: swap; 
+  font-family: 'Gaegu';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/Gaegu-700.eot'); 
+  src: url('fonts/Gaegu-700.eot#iefix') format('embedded-opentype'), 
+       url('fonts/Gaegu-700.woff2') format('woff2'), 
+       url('fonts/Gaegu-700.woff') format('woff'), 
+       url('fonts/Gaegu-700.ttf') format('truetype'), 
+       url('fonts/Gaegu-700.svg#Kalam') format('svg'); 
+}
