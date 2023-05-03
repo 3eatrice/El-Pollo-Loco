@@ -313,3 +313,25 @@ function mobileButtons() {
     keyboard.space = false;
   });
 }
+
+// Mobile Section //
+
+/**
+ * Eventlistener for handleTurnPhonePopup function
+ */
+document.addEventListener("DOMContentLoaded", handleTurnPhonePopup);
+window.addEventListener("resize", handleTurnPhonePopup);
+
+
+/**
+ * Handles the visibility of the turn your phone screen
+ */
+function handleTurnPhonePopup() {
+	var mql = window.matchMedia("(orientation: portrait)");
+	// If there are matches, we're in portrait
+	if (mql.matches && window.innerWidth <= 820) {
+		turnPhone.classList.remove("d-none");
+	} else {
+		turnPhone.classList.add("d-none");
+	}
+}

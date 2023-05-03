@@ -191,7 +191,7 @@ canvas {
 
 /* HIDE */
 .d-none {
-  display: none;
+  display: none !important;
 }
 
 .v-none {
@@ -251,6 +251,40 @@ canvas {
   .controls {
     display: none;
   }
+}
+
+@media only screen and (max-width: 820px) {
+	canvas {
+		width: 100%;
+	}
+
+	.turnPhoneScreen {
+		position: absolute;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 99;
+		background-color: black;
+	}
+
+	.turnPhoneScreen img {
+		width: 100%;
+		max-width: 400px;
+		height: auto;
+	}
+
+	.wrapper {
+		width: 100%;
+		height: unset;
+	}
+
+	#fullscreenContainer {
+		width: 100%;
+	}
 }
 
 @media only screen and (max-width: 720px) {
