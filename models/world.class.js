@@ -11,8 +11,6 @@ class World {
   
   camera_x = 0;
   keyboard;
-  audio_bottle_collect = new Audio('audio/bottle_collect.mp3');
-  audio_coin_collect = new Audio('audio/coin.mp3');
 
   
   constructor(canvas, keyboard) {
@@ -340,7 +338,7 @@ class World {
    */
   addCoins() {
     this.character.coins += 10;
-    this.audio_coin_collect.play();
+    audio_coin_collect.play();
   }
 
 
@@ -387,7 +385,7 @@ class World {
    */
   addBottles() {
     this.character.bottles += 1;
-    this.audio_bottle_collect.play();
+    audio_bottle_collect.play();
   }
 
 

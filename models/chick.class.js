@@ -23,8 +23,6 @@ class Chick extends MovableObject{
   ];
   lifePoints = 100;
   offset = {top: 5, bottom: 5, left: 5, right: 5};
-  audio_chick = new Audio ('audio/chicks.mp3');
-  audio_chick_hurt = new Audio ('audio/chicken_hurt.mp3');
   chick_hurt = 0;
 
   
@@ -79,10 +77,9 @@ class Chick extends MovableObject{
    */
   checkPlaySound() {
     if (this.chick_hurt == 0) {
-      this.audio_chick_hurt.volume = 0.5;
-      this.audio_chick_hurt.play();
-      this.audio_chick.volume = 0.5;
-      this.audio_chick.play();
+      audio_chick_hurt.volume = 0.5;
+      audio_chick_hurt.play();
+  
       this.chick_hurt = 1;
       }
     }

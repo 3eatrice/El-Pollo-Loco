@@ -60,8 +60,6 @@ class Character extends MovableObject{
   ];
   lifePoints = 100;
   offset = {top: 135, bottom: 15, left: 30, right: 50};
-  audio_jump = new Audio('audio/jump.mp3');
-  audio_hurt = new Audio('audio/hurt.mp3');
   speed = 8;
   world;
   bottles = 0;
@@ -191,9 +189,9 @@ class Character extends MovableObject{
    * function to play a jumping sound
    */
   soundJumping() {
-    this.audio_jump.volume = 0.5;
+    audio_jump.volume = 0.5;
     setTimeout(() => {
-      this.audio_jump.play();
+      audio_jump.play();
     }, 350);
   }
 
@@ -215,7 +213,7 @@ class Character extends MovableObject{
   reactHurt() {
     this.resetTimeIdle();
     this.playAnimation(this.images_hurt);
-    this.audio_hurt.play();
+    audio_hurt.play();
   }
 
 

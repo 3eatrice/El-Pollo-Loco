@@ -14,10 +14,15 @@ body {
 }
 
 canvas {
-  position: relative;
-  background-color: rgb(0, 0, 0);
-  border-radius: 10px;
-  display: block;
+	display: inline;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	overflow: hidden;
 }
 
 .iconHome {
@@ -37,6 +42,19 @@ canvas {
 .iconHome img:hover {
   filter: invert(0.8);
 }
+
+.wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	border-radius: 15px;
+	box-shadow: 5px 5px 15px 5px #000000;
+	height: 480px;
+	width: 820px;
+	overflow: hidden;
+}
+
 
 /* EXPLANATION */
 .explanation {
@@ -87,14 +105,16 @@ canvas {
 
 /* STARTSCREEN */
 .startscreen {
-  position: relative;
-  height: 480px;
+	display: flex;
+	width: 100%;
+	height: 100%;
 }
 
+
 .startscreen_img {
-  height: 480px;
-  width: 720px;
-  border-radius: 10px;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .startscreen_buttons {
@@ -238,6 +258,18 @@ canvas {
   height: 100%;
   width: 100%;
 }
+
+.flexCenter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.fullscreen {
+	border-radius: unset !important;
+	width: 100% !important;
+}
+
 
 @media only screen and (max-width: 1024px) {
   .show {

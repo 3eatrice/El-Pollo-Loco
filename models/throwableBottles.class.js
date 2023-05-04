@@ -19,8 +19,6 @@ class ThrowableBottle extends MovableObject {
   ];
   lifePoints = 100;
   offset = {top: 30, bottom: 30, left: 30, right: 30}
-  audio_bottle_splash = new Audio ('audio/bottle_splash2.mp3');
-  audio_bottle_throw = new Audio ('audio/bottle_throw.mp3');
   bottle_throw = 0;
   speedY = 0;
   speedX = 0;
@@ -74,8 +72,8 @@ class ThrowableBottle extends MovableObject {
    */
   playSoundThrow() {
     if (this.bottle_throw == 0) {
-      this.audio_bottle_throw.volume = 0.7;
-      this.audio_bottle_throw.play();
+      audio_bottle_throw.volume = 0.7;
+      audio_bottle_throw.play();
       this.bottle_throw = 1;
     }
   }
@@ -95,7 +93,7 @@ class ThrowableBottle extends MovableObject {
    */
   playSoundSplash() {
     if (this.bottle_throw == 1) {
-      this.audio_bottle_splash.play();
+      audio_bottle_splash.play();
       this.bottle_throw = 2;
       } 
   }

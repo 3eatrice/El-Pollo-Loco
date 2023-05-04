@@ -31,8 +31,6 @@ class Endboss extends MovableObject{
   ];
 lifePoints = 100;
 offset = {top: 100, bottom: 30, left: 70, right: 3};
-audio_chicken = new Audio('audio/big_chicken.mp3');
-audio_chicken_hurt = new Audio('audio/chicken_hurt.mp3');
 world;
 lastHit;
 
@@ -101,7 +99,7 @@ lastHit;
    */
   reactHurt() {
     this.playAnimation(this.images_hurt);
-    this.audio_chicken_hurt.play();
+    audio_chicken_hurt.play();
   }
 
 
@@ -120,8 +118,8 @@ lastHit;
   playSound() {
     audio_bg.volume = 0;
     audio_bg2.volume = 1;
-    this.audio_chicken.volume = 0.3;
-    this.audio_chicken.play();
+    audio_chicken.volume = 0.3;
+    audio_chicken.play();
   }
 
 

@@ -39,7 +39,9 @@
       </div>
       <!--Turn Phone Screen-->
     <div id="fs">
-    <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
+      <div id="wrapper" class="wrapper">
+        <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
+      
 
     <div class="startscreen" id="startscreen">
       <img class="startscreen_img" src="img/9_intro_outro_screens/start/startscreen_2.png" id="startscreen_img">
@@ -48,7 +50,7 @@
         <img onclick="openInfo()" src="img/icons/info.png">
       </div>
     </div>
-    <button class="iconHome d-none" id="iconHome" onclick="location.reload()"><img src="img/icons/home.png"></button>
+    <button class="iconHome d-none" id="iconHome" onclick="goToMenu()"><img src="img/icons/home.png"></button>
     <div id="icons">
       <img id="volume" src="img/icons/volume_on.png" onclick="changeVolume()">
       <img id="arrowUp" src="img/icons/up_arrow_mobile.png" class="d-none show">
@@ -59,7 +61,7 @@
       <div class="center controls"><img src="img/icons/arrow_right_mobile.png">move right</div> 
       <div class="center controls"><img src="img/icons/letter_d.png">throw bottle</div>
       <div class="center controls"><b>space </b>  = jump</div>
-      <img id="fullscreen" src="img/icons/maximize.png" onclick="changeWindowSize()">
+      <img id="fullscreen" src="img/icons/maximize.png" onclick="toggleFullscreen()">
     </div>
 
     <div class="explanation d-none" id="explanation" onclick="closeInfo()">
@@ -74,14 +76,14 @@
       
     <div class="endscreen d-none" id="endscreen_lost">
       <img class="endscreen_img" src="img/9_intro_outro_screens/game_over/you lost.png">
-      <button class="endscreen_button" onclick="location.reload()">go back</button>
+      <button class="endscreen_button" onclick="goToMenu()">go back</button>
     </div>
 
     <div class="endscreen d-none" id="endscreen_won">
       <img class="endscreen_img" src="img/9_intro_outro_screens/game_over/game over!.png">
-      <button class="endscreen_button" onclick="location.reload()">go back</button>
+      <button class="endscreen_button" onclick="goToMenu()">go back</button>
     </div>
-
+  </div>
   </div>
 </body>
 </html>

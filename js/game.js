@@ -7,16 +7,27 @@ let audio_bg2 = new Audio('audio/thrilling.mp3');
 let audio_won = new Audio('audio/won.mp3');
 let audio_lost = new Audio('audio/lost.mp3');
 let audio_walk = new Audio('audio/walking.mp3');
+let audio_bottle_collect = new Audio('audio/bottle_collect.mp3');
+let audio_coin_collect = new Audio('audio/coin.mp3');
+let audio_chicken = new Audio ('audio/chicken1.mp3');
+let audio_chicken_hurt = new Audio ('audio/chicken_hurt.mp3');
+let audio_chick_hurt = new Audio ('audio/chicks_hurt.mp3');
+let audio_jump = new Audio('audio/jump.mp3');
+let audio_hurt = new Audio('audio/hurt.mp3');
+let audio_bottle_splash = new Audio ('audio/bottle_splash2.mp3');
+let audio_bottle_throw = new Audio ('audio/bottle_throw.mp3');
 let imgVolume = 0;
 let imgScreen = 0;
 let windowSize = 0;
+let isFullScreenMode = false;
+
 
 
 function init() {
   audio_bg.volume = 0;
   audio_bg2.volume = 0;
   mobileButtons();
-}
+}  
 
 
 /**
@@ -35,6 +46,54 @@ function startGame() {
   audio_bg2.volume = 0;
   audio_bg2.play();
 } 
+
+function goToMenu() {
+  document.getElementById('startscreen').classList.remove('d-none');
+  hideAllEndScreens()
+  clearAllIntervals();
+  hideCanvas();
+  resetMusic();
+}
+
+
+/**
+ * Hides the canvas.
+ */
+function hideCanvas() {
+	document.getElementById("canvas").classList.add("d-none");
+}
+
+/**
+ * Hides the all end screens like "win" and "game over" screen.
+ */
+function hideAllEndScreens() {
+  document.getElementById('endscreen_lost').classList.add('d-none');
+  document.getElementById('endscreen_won').classList.add('d-none');
+  document.getElementById('icons').classList.remove('bottom');
+  document.getElementById('iconHome').classList.add('d-none');
+}
+
+/**
+ * This function sets a stopable interval.
+ *
+ * @param {string} fn Function which is called inside of the interval.
+ * @param {string} time The interval time in ms.
+ */
+function setStopableInterval(fn, time) {
+	let idInterval = setInterval(fn, time);
+	this.intervalIds.push(idInterval);
+	console.log("set interval");
+}
+
+/**
+ * Clears all intervals.
+ */
+function clearAllIntervals() {
+	for (let i = 1; i < intervalIds.length; i++) {
+		window.clearInterval(i);
+		console.log("intervall cleared");
+	}
+}
 
 
 /**
@@ -68,125 +127,139 @@ function changeVolume() {
   }
 }
 
-
 /**
  * fucntion to stop the music
  */
-function stopMusic() {
+function stopMusic(id, id2, classList) {
+  toggleClassList(id, id2, classList)
   audio_bg.muted = true;
-  audio_bg.pause();
   audio_bg2.muted = true;
-  audio_bg2.pause();
+  audio_won.muted = true;
+  audio_walk.muted = true;
+  audio_bottle_collect.muted = true;
+  audio_coin_collect.muted = true;
+  audio_chicken.muted = true;
+  audio_chicken_hurt.muted = true;
+  audio_chick_hurt.muted = true;
+  audio_jump.muted = true;
+  audio_hurt.muted = true;
+  audio_bottle_splash.muted = true;
+  audio_bottle_throw.muted = true;
 }
 
 
 /**
  * function to play music
  */
-function playMusic() {
+function playMusic(id, id2, classList) {
+  toggleClassList(id, id2, classList)
   audio_bg.muted = false;
-  audio_bg.play();
   audio_bg2.muted = false;
-  audio_bg2.play();
+  audio_won.muted = false;
+  audio_walk.muted = false;
+  audio_bottle_collect.muted = false;
+  audio_coin_collect.muted = false;
+  audio_chicken.muted = false;
+  audio_chicken_hurt.muted = false;
+  audio_chick_hurt.muted = false;
+  audio_jump.muted = false;
+  audio_hurt.muted = false;
+  audio_bottle_splash.muted = false;
+  audio_bottle_throw.muted = false;
 }
 
 
 /**
- * function to switch to fullscreen
+ * toggle function for changing the mute and music on button
  */
-function changeWindowSize() {
-  if (imgScreen == 0) {
-    settingsForFullscreen();
-  } else {
-    settingsForSmallscreen();
+function toggleClassList(id, id2, classList) {
+  var elem1 = document.getElementById(id);
+  var elem2 = document.getElementById(id2);
+  if (elem1 && elem2) {
+    elem1.classList.toggle(classList);
+    elem2.classList.toggle(classList);
   }
 }
 
-
 /**
- * function to enable fullscreen
+ * Resets all music.
  */
-function settingsForFullscreen() {
-  document.getElementById('fullscreen').src = 'img/icons/minimize.png';
-  imgScreen = 1;
-  enterFullscreen(document.getElementById('fs'));
-  addFullscreenStyles();
-  removeSmallscreenStyles();
+function resetMusic() {
+	audio_bg.currentTime = 0;
+	audio_bg2.currentTime = 0;
+	audio_bg.pause();
+	audio_bg2.pause();
 }
 
 
 /**
- * function to disable fullscreen
+ * function to toggle fullscreen mode
  */
-function settingsForSmallscreen() {
-  document.getElementById('fullscreen').src = 'img/icons/maximize.png';
-  imgScreen = 0;
-  exitFullscreen(document.getElementById('fs'));
-  addSmallscreenStyles();
-  removeFullscreenStyles();
-}
-
-/**
- * function to enter fullscreen
- */
-function enterFullscreen(element) {
-  if(element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if(element.msRequestFullscreen) {
-    element.msRequestFullscreen();
-  } else if(element.webkitRequestFullscreen) { 
-    element.webkitRequestFullscreen();
+function requestFullscreen(elem) {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.webkitRequestFullscreen) {
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) {
+    elem.msRequestFullscreen();
   }
 }
 
-
-/**
- * function to exit fullscreen
- */
 function exitFullscreen() {
-  if(document.exitFullscreen) {
+  if (document.exitFullscreen) {
     document.exitFullscreen();
-  } else if(document.webkitExitFullscreen) {
+  } else if (document.webkitExitFullscreen) {
     document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    document.msExitFullscreen();
   }
 }
 
+function enterFullscreenMode() {
+  addFullscreenStyles();
+  document.getElementById("fullscreen").src = "img/icons/minimize.png";
+  isFullScreenMode = true;
+}
 
-/**
- * function to add style for fullscreen
- */
+function exitFullscreenMode() {
+  removeFullscreenStyles();
+  document.getElementById("fullscreen").src = "img/icons/maximize.png";
+  isFullScreenMode = false;
+}
+
+function toggleFullscreen() {
+  if (!isFullScreenMode) {
+    var elem = document.getElementById("fs");
+    requestFullscreen(elem);
+    enterFullscreenMode();
+  } else {
+    exitFullscreen();
+    exitFullscreenMode();
+  }
+}
+
+document.addEventListener("fullscreenchange", function () {
+  if (!document.fullscreenElement) {
+    exitFullscreenMode();
+  }
+});
+
+
+
 function addFullscreenStyles() {
-  document.getElementById('canvas').classList.add('canvasFullscreen');
-  document.getElementById('startscreen').classList.add('startscreen_fs');
-  document.getElementById('startscreen_img').classList.add('startscreen_img_fs');
+  document.getElementById('fs').classList.add('flexCenter');
+  document.getElementById('canvas').classList.add('fullscreen');
+  document.getElementById('wrapper').classList.add('fullscreen');
+  document.getElementById("wrapper").classList.add("flex-center");
+  document.getElementById("wrapper").style.height = "unset";
+
 }
 
-
-/**
- * function to remove style for fullscreen
- */
-function removeSmallscreenStyles() {
-  document.getElementById('startscreen').classList.remove('startscreen');
-  document.getElementById('startscreen_img').classList.remove('startscreen_img');
-}
-
-
-/**
- * function to add style when leaving fullscreen
- */
-function addSmallscreenStyles() {
-  document.getElementById('startscreen').classList.add('startscreen');
-  document.getElementById('startscreen_img').classList.add('startscreen_img');
-}
-
-
-/**
- * function to remove style when leaving fullscreen
- */
 function removeFullscreenStyles() {
-  document.getElementById('canvas').classList.remove('canvasFullscreen');
-  document.getElementById('startscreen').classList.remove('startscreen_fs');
-  document.getElementById('startscreen_img').classList.remove('startscreen_img_fs');
+  document.getElementById('fs').classList.remove('flexCenter');
+  document.getElementById('canvas').classList.remove('fullscreen');
+  document.getElementById('wrapper').classList.remove('fullscreen');
+  document.getElementById("wrapper").classList.remove("flex-center");
 }
 
 
