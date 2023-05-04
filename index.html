@@ -33,11 +33,16 @@
 
 
 <body onload="init()">
-      <!--Turn Phone Screen-->
-      <div id="turnPhone" class="turnPhoneScreen d-none">
-        <img src="img\turn_phone.gif">
-      </div>
-      <!--Turn Phone Screen-->
+
+    <div id="loadingScreen" class="center d-none">
+      <div class="ring"></div>
+      <span class="loadingText">loading...</span>
+    </div>
+
+    <div id="turnPhone" class="turnPhoneScreen d-none">
+      <img src="img\turn_phone.gif">
+    </div>
+
     <div id="fs">
       <div id="wrapper" class="wrapper">
         <canvas id="canvas" width="720" height="480" class="d-none"></canvas>

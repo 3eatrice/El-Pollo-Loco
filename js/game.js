@@ -22,7 +22,9 @@ let windowSize = 0;
 let isFullScreenMode = false;
 
 
-
+/**
+  *Initializes the game by setting the volume of the background audio to 0 and adding event listeners for mobile buttons.
+  */
 function init() {
   audio_bg.volume = 0;
   audio_bg2.volume = 0;
@@ -34,6 +36,7 @@ function init() {
  * function to start the game by clicking on the "play"-button
  */
 function startGame() {
+  showLoadingscreen();
   document.getElementById('startscreen').classList.add('d-none');
   document.getElementById('canvas').classList.remove('d-none');
   document.getElementById('icons').classList.add('bottom');
@@ -41,12 +44,22 @@ function startGame() {
   initLevel();
   canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
+  setTimeout(() => {
+		hideLoadingscreen();
+    playStartMusic()
+	}, 1500);
+} 
+
+function playStartMusic() {
   audio_bg.volume = 0.7;
   audio_bg.play();
   audio_bg2.volume = 0;
   audio_bg2.play();
-} 
+}
 
+/**
+ * function to switch to the Start Menu
+ */
 function goToMenu() {
   document.getElementById('startscreen').classList.remove('d-none');
   hideAllEndScreens()
@@ -205,6 +218,9 @@ function requestFullscreen(elem) {
   }
 }
 
+/**
+ * Exits fullscreen mode
+ */
 function exitFullscreen() {
   if (document.exitFullscreen) {
     document.exitFullscreen();
@@ -215,18 +231,27 @@ function exitFullscreen() {
   }
 }
 
+/**
+ * Enters fullscreen mode and updates UI
+ */
 function enterFullscreenMode() {
   addFullscreenStyles();
   document.getElementById("fullscreen").src = "img/icons/minimize.png";
   isFullScreenMode = true;
 }
 
+/**
+ * Exits fullscreen mode and updates UI
+ */
 function exitFullscreenMode() {
   removeFullscreenStyles();
   document.getElementById("fullscreen").src = "img/icons/maximize.png";
   isFullScreenMode = false;
 }
 
+/**
+ * Toggles fullscreen mode and updates UI
+ */
 function toggleFullscreen() {
   if (!isFullScreenMode) {
     var elem = document.getElementById("fs");
@@ -238,14 +263,16 @@ function toggleFullscreen() {
   }
 }
 
+// Event listener for exiting fullscreen mode
 document.addEventListener("fullscreenchange", function () {
   if (!document.fullscreenElement) {
     exitFullscreenMode();
   }
 });
 
-
-
+/**
+ * Adds CSS styles for fullscreen mode
+ */
 function addFullscreenStyles() {
   document.getElementById('fs').classList.add('flexCenter');
   document.getElementById('canvas').classList.add('fullscreen');
@@ -255,6 +282,9 @@ function addFullscreenStyles() {
 
 }
 
+/**
+ * Removes CSS styles for fullscreen mode
+ */
 function removeFullscreenStyles() {
   document.getElementById('fs').classList.remove('flexCenter');
   document.getElementById('canvas').classList.remove('fullscreen');
@@ -300,6 +330,22 @@ function wonGame() {
  */
 function clearAllIntervals() {
   for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}
+
+/**
+ * Shows the loading screen.
+ */
+function showLoadingscreen() {
+	document.getElementById("loadingScreen").classList.remove("d-none");
+	document.getElementById("wrapper").classList.add("d-none");
+}
+
+/**
+ * Hides the loading screen.
+ */
+function hideLoadingscreen() {
+	document.getElementById("loadingScreen").classList.add("d-none");
+	document.getElementById("wrapper").classList.remove("d-none");
 }
 
 
